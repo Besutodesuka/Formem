@@ -10,11 +10,11 @@ class HomePage extends StatelessWidget {
       appBar: homeAppbar(),
       body: Column(children: [
         Container(
-          margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
+          margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
           decoration: const BoxDecoration(boxShadow: [
             BoxShadow(
                 color: Color.fromRGBO(0, 0, 0, 0.11),
-                blurRadius: 40,
+                blurRadius: 10,
                 spreadRadius: 0.0)
           ]),
           child: TextField(
@@ -53,21 +53,21 @@ class HomePage extends StatelessWidget {
         style: TextStyle(
             color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
       ),
-      backgroundColor: const Color.fromRGBO(169, 78, 250, 0.612),
       centerTitle: true,
-      actions: [
-        GestureDetector(
-          child: Container(
-            margin: EdgeInsets.all(10),
-            alignment: Alignment.center,
-            child: Icon(Icons.add),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-          ),
-          onTap: () {
-            // pop up create tag
-          },
-        )
-      ],
+      elevation: 0.0,
+      // actions: [
+      //   GestureDetector(
+      //     child: Container(
+      //       margin: EdgeInsets.all(10),
+      //       alignment: Alignment.center,
+      //       child: Icon(Icons.add),
+      //       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+      //     ),
+      //     onTap: () {
+      //       // pop up create tag
+      //     },
+      //   )
+      // ],
     );
   }
 }
