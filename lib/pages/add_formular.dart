@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:formem/pages/calculator.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../widget/addvar_dialog_box.dart';
@@ -14,13 +15,14 @@ class AddFormula extends StatefulWidget {
 class _AddFormulaState extends State<AddFormula> {
   // ref to db
   final _NameController = TextEditingController();
-  final _ValueController = TextEditingController();
   final _UnitController = TextEditingController();
+  final _FormulaController = TextEditingController(text: '');
   final _formulaBox = Hive.box('formula');
 
   List TempVariable = [];
+  var FormNameController = TextEditingController();
   // write data
-  void writeData(int key, List<String> value) {
+  void writeData(String key, List value) {
     /* # schema is
     
     */
@@ -44,7 +46,10 @@ class _AddFormulaState extends State<AddFormula> {
     // alert no filled
   }
 
-  void SaveNewFormula() {}
+  void SaveNewFormula() {
+    // TempVariable.insert(0, '');
+    // writeData(FormNameController.text, TempVariable);
+  }
 
   void createNewVar() {
     showDialog(
@@ -61,7 +66,6 @@ class _AddFormulaState extends State<AddFormula> {
 
   @override
   Widget build(BuildContext context) {
-    var FormNameController = TextEditingController();
     return Scaffold(
       appBar: AddformAppbar(),
       body: Column(children: [
@@ -100,11 +104,8 @@ class _AddFormulaState extends State<AddFormula> {
               Container(
                   margin: const EdgeInsets.only(top: 10, left: 5),
                   child: GestureDetector(
-                      child: const Icon(Icons.add_outlined), onTap: createNewVar
-                      // get Name from textfield
-                      // organize data in list
-                      // write data
-                      ))
+                      child: const Icon(Icons.add_outlined),
+                      onTap: createNewVar))
             ],
           ),
         ),
@@ -130,24 +131,30 @@ class _AddFormulaState extends State<AddFormula> {
           ),
         ),
         //custom keybard
-        Container(
-          margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-          child: TextField(
-            decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(15),
-                prefixIcon: const Icon(
-                  Icons.document_scanner_outlined,
-                  color: Colors.black87,
-                  size: 25.0,
-                ),
-                hintText: 'equation',
-                filled: true,
-                fillColor: Colors.green[50],
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide.none)),
-          ),
-        ),
+        GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) => Calculatorview(
+                          Variable: TempVariable,
+                        )),
+              );
+            },
+            child: Container(
+              padding:
+                  EdgeInsets.only(top: 10, left: 10, right: 20, bottom: 50),
+              margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
+              decoration: BoxDecoration(
+                color: Colors.green[50],
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: const Column(
+                children: [
+                  Row(children: [Icon(Icons.equalizer), Text('equation')]),
+                  Text('')
+                ],
+              ),
+            )),
       ]),
       floatingActionButton: FloatingActionButton(
         tooltip: 'press here to add more formula',
