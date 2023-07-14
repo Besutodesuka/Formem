@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 class VarTile extends StatelessWidget {
   final String Name;
   final String Unit;
-  const VarTile({super.key, required this.Name, required this.Unit});
+  final VoidCallback Ondel;
+
+  const VarTile(
+      {super.key, required this.Name, required this.Unit, required this.Ondel});
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +22,7 @@ class VarTile extends StatelessWidget {
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(Name),
           Text('Unit :' + Unit),
-          GestureDetector(
-            child: Icon(Icons.delete),
-          )
+          IconButton(onPressed: Ondel, icon: Icon(Icons.delete))
         ]),
       ),
     );
